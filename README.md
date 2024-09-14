@@ -41,7 +41,7 @@ APIの送信先を編集します。
 更新したらルールのターゲットを更新します。
 ![image](https://github.com/user-attachments/assets/2a70925c-63c8-439e-ac55-7fb4721409d1)
 ![image](https://github.com/user-attachments/assets/62a47ff4-7330-4e07-9ea0-543cdf2af2cf)
-`serverless/test`は`{CacheName}/`{TopicName}`ですので皆さんの環境に合わせて設定してください。
+`serverless/test`は`{CacheName}`/`{TopicName}`ですので皆さんの環境に合わせて設定してください。
 
 Momento Cache でWebhookの飛ばし先を[https://webhook.site/](https://webhook.site/)で設定したパラメータにしておくと以下のようにS3バケットに保存されたファイル名を受信しながら
 同時にWebhookを外部に出していることがわかります。
