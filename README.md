@@ -4,7 +4,7 @@
 それぞれのサービスの学習の第一歩としてください。
 
 ### 利用サービス
-AWS: Amazon Event Bridge, Amazon Identity and Management (IAM), AWS Lambda, Amazon S3<br>
+AWS: Amazon Event Bridge, Amazon Identity and Management (IAM), Amazon S3<br>
 Momento: Momento Cache, Momento Topics<br>
 Postman: Postman Collenctions, Postman Flows<br>
 PingCap: TiDB Serverless<br>
