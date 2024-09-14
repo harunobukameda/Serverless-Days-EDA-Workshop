@@ -32,7 +32,7 @@ Amazon Linuxと記事には記載されていますが、WindowsやMacでも動�
 ### 3. Amazon S3 → Amazon EventBridge → Momento Cache
 [https://zenn.dev/momentobigfun/articles/f3fe271f6c9ef9](https://zenn.dev/momentobigfun/articles/f3fe271f6c9ef9)
 
-### 4. Amazon S3 → Amazon EventBridge → AWS Lambda → Momento Topics
+### 4. Amazon S3 → Amazon EventBridge → Momento Topics
 先の手順ではMomento Cacheへデータを書き込んでいるためMomento Topicsへデータを書き込むよう変更します
 APIの送信先を編集します。
 ![image](https://github.com/user-attachments/assets/888b14b4-558d-4ef6-98c6-37941e74aecf)
