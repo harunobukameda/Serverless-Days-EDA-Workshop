@@ -160,7 +160,7 @@ export default {
 };
 ```
 次に先ほどと同じ手順でPostman CollectionsとFlowsを変更しPublishをクリックします。
-Cloudshellでファイルをアップロードします。
+CloudShellでファイルをアップロードします。
 以下のようにTiDB Serverlessにデータが書き込まれていることがわかります。
 ![image](https://github.com/user-attachments/assets/8ab2b4d3-5b32-4845-bae9-baa1bfdb25ab)
 
