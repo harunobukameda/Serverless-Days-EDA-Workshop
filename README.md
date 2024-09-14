@@ -124,7 +124,7 @@ CloudflareのマネージメントコンソールからWorkersをクリックし
     }
 ```
 
-#### 7. TiDB Serverlessnの起動とテスト
+#### 7. TiDB Serverlessの起動とテスト
 [https://zenn.dev/kameping/articles/2248cb2833785e](https://zenn.dev/kameping/articles/2248cb2833785e) <br>
 でまず、Serverlessクラスターの簡単な操作を学びます。
 次にこちらの記事をもとにブラウザからSQLを実行できる`SQL Editor / Chat2Query`の操作を学んでおきます。
