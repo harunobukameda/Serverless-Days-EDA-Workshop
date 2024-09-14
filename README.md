@@ -59,13 +59,13 @@ Momento Cache でWebhookの飛ばし先を[https://webhook.site/](https://webhoo
 ```
 
 #### 5.Postman Collections と Postman Flows でAPIコールの作成
-[https://qiita.com/KameMan/items/3e8d3a6e138fc47abcc4](https://qiita.com/KameMan/items/3e8d3a6e138fc47abcc4)
-[https://qiita.com/KameMan/items/b3313738bf29ec469dd1](https://qiita.com/KameMan/items/b3313738bf29ec469dd1)
+[https://qiita.com/KameMan/items/3e8d3a6e138fc47abcc4](https://qiita.com/KameMan/items/3e8d3a6e138fc47abcc4)　<br>
+[https://qiita.com/KameMan/items/b3313738bf29ec469dd1](https://qiita.com/KameMan/items/b3313738bf29ec469dd1) <br>
 まずはこの記事に従いPostman CollectonとFlowの関係性を学んでおきます。
 簡単に説明するとCollectionはAPIコールを設定します。FlowsはCollectionsで設定されたAPIコールをもとに
 一連のワークフローを作成できます。
 次に以下の手順を行います。手順の中には新規でWebhookを作成するようになっていますが、手順4で作成したWebhookの向き先を`webhook.site`から変更して下さい。
-[https://qiita.com/KameMan/items/7e072c8ac704baae821f](https://qiita.com/KameMan/items/7e072c8ac704baae821f)
+[https://qiita.com/KameMan/items/7e072c8ac704baae821f](https://qiita.com/KameMan/items/7e072c8ac704baae821f) <br>
 正しく設定できれば以下の通りメッセージ（S3バケットのファイル名)を正しく受信します。（余計なサニタイズされた文字は後で削除します）
 ![image](https://github.com/user-attachments/assets/f7a5fd7e-770b-477c-bfd9-c160880e4224)
 
@@ -125,13 +125,13 @@ CloudflareのマネージメントコンソールからWorkersをクリックし
 ```
 
 #### 7. TiDB Serverlessnの起動とテスト
-[https://zenn.dev/kameping/articles/2248cb2833785e](https://zenn.dev/kameping/articles/2248cb2833785e)
+[https://zenn.dev/kameping/articles/2248cb2833785e](https://zenn.dev/kameping/articles/2248cb2833785e) <br>
 でまず、Serverlessクラスターの簡単な操作を学びます。
-次にこちらの記事をもとにブラウザからSQLを実行できる`Chat2Query`の操作を学んでおきます。
-[https://zenn.dev/kameping/articles/9ebee487d30359](https://zenn.dev/kameping/articles/9ebee487d30359)
+次にこちらの記事をもとにブラウザからSQLを実行できる`SQL Editor / Chat2Query`の操作を学んでおきます。
+[https://zenn.dev/kameping/articles/9ebee487d30359](https://zenn.dev/kameping/articles/9ebee487d30359) <br>
 
 #### 8. Cloudflare Workers と TiDB Serverless の連携テスト
-[https://zenn.dev/kameoncloud/articles/99d3ed9d5ce4fd](https://zenn.dev/kameoncloud/articles/99d3ed9d5ce4fd)
+[https://zenn.dev/kameoncloud/articles/99d3ed9d5ce4fd](https://zenn.dev/kameoncloud/articles/99d3ed9d5ce4fd) <br>
 この手順を別ディレクトリで試します。7.の手順で作成したWorkers関数と混ざらないように別ディレクトリで作業を行ってください。
 （先ほどと異なり今度はTypeScriptを使用します）
 `index.ts`を以下に置き換え`wrangler deploy`を実行します。
