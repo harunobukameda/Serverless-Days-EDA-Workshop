@@ -164,6 +164,49 @@ CloudShellでファイルをアップロードします。
 以下のようにTiDB Serverlessにデータが書き込まれていることがわかります。
 ![image](https://github.com/user-attachments/assets/8ab2b4d3-5b32-4845-bae9-baa1bfdb25ab)
 
+## Optional Scenario : EDA の技術特性と対処法
+今出来上がった環境は正常時には動作しますが、障害時のエラーハンドリングがなされていないことに注意してください。そしてEDAアーキテクチャには重要な３つの要素をあらかじめ設計しておく必要があります。<br>
+
+1. 順不同メッセージ送出
+2. 重複したメッセージ送出
+3. メッセージの消失
+4. コール先の障害
+
+### 1. 順不同のメッセージ送出
+Webhookの送出に用いたMomento Topicsは順番を保証していません。このためメッセージは順番を追い越す可能性があります。
+Amazon SQSなどはFIFOキューという順番を保持する基盤がありますが、これもあくまで**送出**までです。受け取り側のネットワーク事象ではメッセージが順不同となる可能性を把握しておく必要があります。
+
+### 2. 重複したメッセージ送出
+メッセージに基盤の技術特性はベンダー間によって様々です。例えばAmazon SQSやCloudflare Queueは最低１回のメッセージ送出を保証しています。つまりタイミングで２回目があり得るということです。
+これについての対象方はいくつかあります。
+
+#### TiDB Serverless におけるUnique属性の付与
+（WIP）
+#### TiDB Serverless におけるUpsertの利用
+（WIP）
+#### Cloudflare Workers ＋ KV のフラグ管理
+（WIP）
+
+### 3. メッセージ消失
+Webhookの送出に用いたMomento Topicsはメッセージの到達を保証していません。一方Amazon SQSやCloudflare Queueはメッセージの到達を保証しています。
+これはどちらが良い悪いではなく技術特性の違いによるものです。Momento Topicsのサブスクライバはステートフルコネクションによりメッセージを受信しています。<br>
+このためかなり速いスピードでメッセージを受信します。一方Amazon SQSやCloudflare Queueはサブスクライバが自分のタイミングでメッセージを読みに行きます。（読んだ時点で消されます）
+これはメッセージ到達性はより担保できますがパフォーマンスは低下します。
+
+#### Momento Topics のSequence番号
+Momento Topics には Sequence 番号が付与されています。これによりメッセージ順の追い越しや消失を知ることができます。
+（WIP)
+
+### 4. コール先の障害
+Amazon EventBridgeがMomento Topicsにメッセージを承知する場合、Momento Topicsに障害が発生しているとそのリクエストは設定に従いリトライされたのち失敗します。
+そのイベントが消失しないように、EventBridgeではDead Letter Queue が準備されています。
+
+#### Amazon EventBridge によるDLQの設定
+（WIP)
+
+
+
+
 
 
 
