@@ -181,9 +181,35 @@ Amazon SQSなどはFIFOキューという順番を保持する基盤がありま
 これについての対象方はいくつかあります。
 
 #### TiDB Serverless におけるUnique属性の付与
-（WIP）
+重複したデータの書き込みを受け付けたくない場合、当該カラムの属性をUniqueにしてしまうのが一番手っ取り早いです。
+この場合Workers側のInertで重複処理はエラーになります。
+
+```sql
+ALTER TABLE `bookshop`.`users`
+ADD CONSTRAINT constraint_name UNIQUE (`bookshop`.`nickname`);
+describe `bookshop`.`users`;
+```
+一番最初のイベントのみが処理されます。
+
 #### TiDB Serverless におけるUpsertの利用
-（WIP）
+上記とは逆に一番最後のイベントが最初の処理を上書きしても問題ない場合は`Insert`よりは`upsert`を使います。
+`upsert`とはSQLのANSI標準ではないため、データベースエンジンごとに書式が異なりますが、データがあればUpdate、なければInsertを一度に行うコマンドです。
+TiDB Serverlessの場合Upsertではなく以下のような構文になります。
+
+```sql
+INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`)
+VALUES (1, 'test', 100.00)
+ON DUPLICATE KEY UPDATE `nickname` = 'test';
+```
+
+```typescript:前
+const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '"+value_clear+"', 100.00);")
+```
+```typescript:後
+const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '"+value_clear+"', 100.00) ON DUPLICATE KEY UPDATE `nickname` = " + value_clear+ "'test';")
+```
+に変更することでUpsertを実装できます。
+
 #### Cloudflare Workers ＋ KV のフラグ管理
 （WIP）
 
