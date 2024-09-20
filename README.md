@@ -228,7 +228,10 @@ Amazon EventBridgeがMomento Topicsにメッセージを承知する場合、Mom
 そのイベントが消失しないように、EventBridgeではDead Letter Queue が準備されています。
 
 #### Amazon EventBridge によるDLQの設定
-（WIP)
+EventBridgeのルール編集画面のターゲット設定画面の下部にて以下を設定します。
+![image](https://github.com/user-attachments/assets/5792d5e5-f568-4e1e-a3cc-2eb610a47053)
+以下に詳細がありますので参考にしてください。
+https://docs.aws.amazon.com/ja_jp/eventbridge/latest/userguide/eb-rule-dlq.html
 
 
 
