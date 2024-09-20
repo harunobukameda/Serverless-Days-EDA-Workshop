@@ -226,7 +226,9 @@ export default {
 に変更することでUpsertを実装できます。
 
 #### Cloudflare Workers ＋ KV のフラグ管理
-（WIP）
+WorkersにはNoSQL型KeyValue StoreであるKV、RDBであるD1というストレージが備わっています。
+https://zenn.dev/kameoncloud/articles/7236a2c6ad35c0
+これらを用いることで既に処理済の文字列をKVに一時的に保存しておき重複処理を防ぐことが可能です。
 
 ### 3. メッセージ消失
 Webhookの送出に用いたMomento Topicsはメッセージの到達を保証していません。一方Amazon SQSやCloudflare Queueはメッセージの到達を保証しています。
@@ -236,7 +238,51 @@ Webhookの送出に用いたMomento Topicsはメッセージの到達を保証�
 
 #### Momento Topics のSequence番号
 Momento Topics には Sequence 番号が付与されています。これによりメッセージ順の追い越しや消失を知ることができます。
-（WIP)
+```json
+{
+   "cache":"serverless",
+   "topic":"test",
+   "event_timestamp":1726292279849,
+   "publish_timestamp":1726292279850,
+   "topic_sequence_number":3,
+   "token_id":"",
+   "text":"\"testfile2.txt\""
+}
+```
+Postmanで受け取ったjsonから`text`に追加で`topic_sequence_number`を取り扱うにはもう一つEvaluateブロックを作成します。
+一つのEvaluateブロックは一つの変数のみ取り扱うためです。
+
+![image](https://github.com/user-attachments/assets/d9b8bd70-60d7-4f96-a6de-9a16c9bd3f47)
+このようにvalue1は`text`、value2は`topic_sequence_number`をJSONから抜き出しています。
+コレクションに`value2`という変数を追加すれば`topic_sequence_number`をWorkersに投げてくれます。
+![image](https://github.com/user-attachments/assets/df9ec677-5173-4ad7-b42e-a5adb9a18c27)
+
+Workersのコードを以下に修正すれば、CloudflareマネージメントコンソールのログからWorkersが`topic_sequence_number`を受け取っていることが確認できます。
+```javascript
+import { connect } from '@tidbcloud/serverless'
+
+
+export interface Env {
+   DATABASE_URL: string;
+}
+
+export default {
+   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+      const conn = connect({ url: env.DATABASE_URL })
+
+      const url = new URL(request.url);
+      const value1 = url.searchParams.get("value1");
+      const value2 = url.searchParams.get("value2");
+      const value_clear = value1.replace(/"/g, ""); // すべての " を削除
+
+      console.log(value2);
+      const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '" + value_clear + "', 100.00) ON DUPLICATE KEY UPDATE `nickname` = '" + value_clear + "',`balance`=100.00;")
+      return new Response(JSON.stringify(resp));
+   },
+};
+```
+
+ただし注意点があります。Momento Topics は高速なリアルタイムデータストリーミングに特化した基盤です。このためデータの再送が行えません。データの再送処理が必須な場合はメッセージ基盤にAmazon EventBridge+DQLを使うなどの設計が必要です。その分Momento Topicsは高速に大量のデータ配信を得意としています。
 
 ### 4. コール先の障害
 Amazon EventBridgeがMomento Topicsにメッセージを承知する場合、Momento Topicsに障害が発生しているとそのリクエストは設定に従いリトライされたのち失敗します。
