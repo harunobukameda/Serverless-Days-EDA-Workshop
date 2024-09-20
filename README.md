@@ -194,7 +194,7 @@ describe `bookshop`.`users`;
 #### TiDB Serverless におけるUpsertの利用
 上記とは逆に一番最後のイベントが最初の処理を上書きしても問題ない場合は`Insert`よりは`upsert`を使います。
 `upsert`とはSQLのANSI標準ではないため、データベースエンジンごとに書式が異なりますが、データがあればUpdate、なければInsertを一度に行うコマンドです。
-TiDB Serverlessの場合Upsertではなく以下のような構文になります。
+TiDB Serverlessの場合直接的なUpsertコマンドではなく以下のような構文になります。
 
 ```sql
 INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`)
