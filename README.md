@@ -202,11 +202,27 @@ VALUES (1, 'test', 100.00)
 ON DUPLICATE KEY UPDATE `nickname` = 'test';
 ```
 
-```typescript:前
-const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '"+value_clear+"', 100.00);")
 ```
 ```typescript:後
-const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '"+value_clear+"', 100.00) ON DUPLICATE KEY UPDATE `nickname` = " + value_clear+ "'test';")
+import { connect } from '@tidbcloud/serverless'
+
+
+export interface Env {
+   DATABASE_URL: string;
+}
+
+export default {
+   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+      const conn = connect({ url: env.DATABASE_URL })
+
+      const url = new URL(request.url);
+      const value1 = url.searchParams.get("value1");
+      const value_clear = value1.replace(/"/g, ""); // すべての " を削除
+
+      const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '" + value_clear + "', 100.00) ON DUPLICATE KEY UPDATE `nickname` = '" + value_clear + "',`balance`=100.00;")
+      return new Response(JSON.stringify(resp));
+   },
+};
 ```
 に変更することでUpsertを実装できます。
 
