@@ -202,7 +202,7 @@ VALUES (1, 'test', 100.00)
 ON DUPLICATE KEY UPDATE `nickname` = 'test';
 ```
 
-```typescript:後
+```javascript
 import { connect } from '@tidbcloud/serverless'
 
 
