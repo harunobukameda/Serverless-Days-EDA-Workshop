@@ -47,6 +47,9 @@ APIの送信先を編集します。
 ![image](https://github.com/user-attachments/assets/62a47ff4-7330-4e07-9ea0-543cdf2af2cf)
 `serverless/test`は`{CacheName}`/`{TopicName}`ですので皆さんの環境に合わせて設定してください。
 
+APIの送信先はPUTからPOSTに変更してください。
+![image](https://github.com/user-attachments/assets/228022e7-b3b2-435f-9ab3-3de28c0d55d1)
+
 Momento Cache でWebhookの飛ばし先を[https://webhook.site/](https://webhook.site/)で設定したパラメータにしておくと以下のようにS3バケットに保存されたファイル名を受信しながら
 同時にWebhookを外部に出していることがわかります。
 ![image](https://github.com/user-attachments/assets/5b99a369-571a-410e-8dfb-82c9ddc176ae)
