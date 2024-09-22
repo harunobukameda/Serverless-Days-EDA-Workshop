@@ -229,7 +229,7 @@ export default {
 
 #### Cloudflare Workers ＋ KV のフラグ管理
 WorkersにはNoSQL型KeyValue StoreであるKV、RDBであるD1というストレージが備わっています。
-https://zenn.dev/kameoncloud/articles/7236a2c6ad35c0
+https://zenn.dev/kameoncloud/articles/7236a2c6ad35c0<br>
 これらを用いることで既に処理済の文字列をKVに一時的に保存しておき重複処理を防ぐことが可能です。
 
 以下のソースコードに変更して`wrangler deploy`を実行してください。
@@ -257,9 +257,22 @@ export default {
    },
 };
 ```
+**wrangler.toml**
+```
+#:schema node_modules/wrangler/config-schema.json
+name = "tidb-cloud-cloudflare"
+main = "src/index.ts"
+compatibility_date = "2024-09-09"
+compatibility_flags = ["nodejs_compat"]
+
+[[kv_namespaces]]
+binding = "serverless"
+id = "66f3774ac18a4121ab49b60ce80dfe8c"
+```
+`bindings`や`id`は皆さんの環境ごとに異なります。
 
 TiDB Serverlessに対してMomentoをインラインキャッシュとして実装するサンプルはこちらになりますので興味があればやってみて下さい。
-https://zenn.dev/kameoncloud/articles/a21e0dcb92b67d
+https://zenn.dev/kameoncloud/articles/a21e0dcb92b67d<br>
 
 ### 3. メッセージ消失
 Webhookの送出に用いたMomento Topicsはメッセージの到達を保証していません。一方Amazon SQSやCloudflare Queueはメッセージの到達を保証しています。
