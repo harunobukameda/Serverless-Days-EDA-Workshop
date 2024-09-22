@@ -230,8 +230,10 @@ export default {
 #### Cloudflare Workers ＋ KV のフラグ管理
 WorkersにはNoSQL型KeyValue StoreであるKV、RDBであるD1というストレージが備わっています。
 https://zenn.dev/kameoncloud/articles/7236a2c6ad35c0
-https://zenn.dev/kameoncloud/articles/a21e0dcb92b67d
 これらを用いることで既に処理済の文字列をKVに一時的に保存しておき重複処理を防ぐことが可能です。
+
+TiDB Serverlessに対してMomentoをインラインキャッシュとして実装するサンプルはこちらになりますので興味があればやってみて下さい。
+https://zenn.dev/kameoncloud/articles/a21e0dcb92b67d
 
 ### 3. メッセージ消失
 Webhookの送出に用いたMomento Topicsはメッセージの到達を保証していません。一方Amazon SQSやCloudflare Queueはメッセージの到達を保証しています。
