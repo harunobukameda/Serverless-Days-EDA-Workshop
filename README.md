@@ -71,7 +71,7 @@ Momento Cache でWebhookの飛ばし先を[https://webhook.site/](https://webhoo
 まずはこの記事に従いPostman CollectonとFlowの関係性を学んでおきます。
 簡単に説明するとCollectionはAPIコールを設定します。FlowsはCollectionsで設定されたAPIコールをもとに
 一連のワークフローを作成できます。
-次に以下の手順を行います。手順の中には新規でWebhookを作成するようになっていますが、手順4で作成したWebhookの向き先を`webhook.site`から変更して下さい。
+次に以下の手順を行います。手順の中には新規でWebhookを作成するようになっていますが、手順4で作成したWebhookの向き先を`webhook.site`からPostman Flowsで作成したエンドポイントへと変更して下さい。
 [https://qiita.com/KameMan/items/7e072c8ac704baae821f](https://qiita.com/KameMan/items/7e072c8ac704baae821f) <br>
 正しく設定できれば以下の通りメッセージ（S3バケットのファイル名)を正しく受信します。（余計なサニタイズされた文字は後で削除します）
 ![image](https://github.com/user-attachments/assets/f7a5fd7e-770b-477c-bfd9-c160880e4224)
