@@ -232,6 +232,32 @@ WorkersにはNoSQL型KeyValue StoreであるKV、RDBであるD1というスト�
 https://zenn.dev/kameoncloud/articles/7236a2c6ad35c0
 これらを用いることで既に処理済の文字列をKVに一時的に保存しておき重複処理を防ぐことが可能です。
 
+以下のソースコードに変更して`wrangler deploy`を実行してください。
+```javascript
+import { connect } from '@tidbcloud/serverless'
+
+export interface Env {
+   DATABASE_URL: string;
+}
+
+export default {
+   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+      const conn = connect({ url: env.DATABASE_URL })
+
+      const url = new URL(request.url);
+      const value1 = url.searchParams.get("value1");
+      const value_clear = value1.replace(/"/g, ""); // すべての " を削除
+
+      const key = await env.serverless.get(value1)
+      if (key == null) {
+         await env.serverless.put(value1, "test");
+         const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '" + value_clear + "', 100.00) ON DUPLICATE KEY UPDATE `nickname` = '" + value_clear + "',`balance`=100.00;")
+      }
+      return new Response(JSON.stringify(resp));
+   },
+};
+```
+
 TiDB Serverlessに対してMomentoをインラインキャッシュとして実装するサンプルはこちらになりますので興味があればやってみて下さい。
 https://zenn.dev/kameoncloud/articles/a21e0dcb92b67d
 
