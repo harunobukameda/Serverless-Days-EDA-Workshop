@@ -258,7 +258,7 @@ export default {
          await env.serverless.put(value1, "test");
          const resp = await conn.execute("INSERT INTO `bookshop`.`users` (`id`, `nickname`, `balance`) VALUES (1, '" + value_clear + "', 100.00) ON DUPLICATE KEY UPDATE `nickname` = '" + value_clear + "',`balance`=100.00;")
       }
-      const resp = await conn.execute("SELECT * from bookshop.users);")
+      const resp = await conn.execute("SELECT * from bookshop.users;")
       return new Response(JSON.stringify(resp));
    },
 };
