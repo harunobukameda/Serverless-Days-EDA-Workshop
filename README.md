@@ -28,7 +28,7 @@ npm: Nodeと一緒にインストールされるはずです。
 [https://zenn.dev/momentobigfun/articles/aa24ff7817e06c](https://zenn.dev/momentobigfun/articles/aa24ff7817e06c)
 Amazon Linuxと記事には記載されていますが、WindowsやMacでも動作します。
 
-Momento AUTH_TOKENはMOMENTO_API_KEYに名まえが変更となっているため、MOMENTO_API_KEYで統一して作業してください。
+Momento AUTH_TOKENはMOMENTO_API_KEYに名前が変更となっているため、MOMENTO_API_KEYで統一して作業してください。
 
 ### 2. Momento Topics と Webhook 送出
 [https://zenn.dev/momentobigfun/articles/9dbaf46e654ebe](https://zenn.dev/momentobigfun/articles/9dbaf46e654ebe)
