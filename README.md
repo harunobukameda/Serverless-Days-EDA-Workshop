@@ -230,6 +230,7 @@ export default {
 #### Cloudflare Workers ＋ KV のフラグ管理
 WorkersにはNoSQL型KeyValue StoreであるKV、RDBであるD1というストレージが備わっています。
 https://zenn.dev/kameoncloud/articles/7236a2c6ad35c0
+https://zenn.dev/kameoncloud/articles/a21e0dcb92b67d
 これらを用いることで既に処理済の文字列をKVに一時的に保存しておき重複処理を防ぐことが可能です。
 
 ### 3. メッセージ消失
