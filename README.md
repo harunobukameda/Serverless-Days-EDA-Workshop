@@ -344,6 +344,11 @@ EventBridgeのルール編集画面のターゲット設定画面の下部にて
 以下に詳細がありますので参考にしてください。
 https://docs.aws.amazon.com/ja_jp/eventbridge/latest/userguide/eb-rule-dlq.html
 
+#### TiDB の CDCモード
+TiDB Serverlessでは残念ながらこの機能は使えませんが、DedicatedクラスターではChange Data Caputre (CDC)モードによるChangefeedを設定可能です。これによりInsert,Update,Deleteがイベントとして送出され
+データ同期が可能です。
+https://zenn.dev/kameping/articles/8ac97a06ce3de8
+
 
 
 
